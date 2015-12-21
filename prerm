@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DPATH=`find /var/mobile/Applications -name 'WalkingDeadApp.app' -type d`
+
+mv $DPATH/WalkingDead/WeaponDefs.0 $DPATH/WalkingDead/WeaponDefs.txt
+mv $DPATH/WalkingDead/WalkerDefs.0 $DPATH/WalkingDead/WalkerDefs.txt

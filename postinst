@@ -1,0 +1,60 @@
+#!/bin/bash
+
+#############################################################
+# Simple Bash Script Modify The Walking Dead: Assault V1.67
+#
+# Features Included:
+#
+# 1. Huge Weapon Attack Radius
+# 2. Infinite Ammo
+# 3. Fast Weapon Fire Rate
+# 4. Modified Weapon Damage
+# 5. Weapons Don't Knock you Back
+# 6. Weapons Don't Attract Enemies
+# 7. Slow Enemies
+#
+#############################################################
+
+if ! [ -f /var/mobile/Applications/*/WalkingDeadApp.app/WalkingDeadApp ]; then
+
+	echo 'Application Not Found!'
+	
+else
+
+	DPATH=`find /var/mobile/Applications -name 'WalkingDeadApp.app' -type d`
+	echo -e "Applcation Found!\nDirectory Path: $DPATH\n"
+	
+	# Back up all files in case user wants to remove mod later!
+	
+	if [ -f $DPATH/WalkingDead/WeaponDefs.0 ] && [ -f $DPATH/WalkingDead/WalkerDefs.0 ]; then
+	
+		echo 'Back Up Already Made!'
+		
+	else
+	
+		cp $DPATH/WalkingDead/WeaponDefs.txt $DPATH/WalkingDead/WeaponDefs.0
+		cp $DPATH/WalkingDead/WalkerDefs.txt $DPATH/WalkingDead/WalkerDefs.0
+		echo 'Back Up Created!'
+	fi
+	
+	# Weapon Mods
+	
+	cat $DPATH/WalkingDead/WeaponDefs.txt | sed 's/.*AttackRadius.*/[AttackRadius]			100/g' \
+										  | sed 's/.*AmmoCount.*/[AmmoCount]			0/g' \
+										  | sed 's/.*RateOfFire.*/[RateOfFire] 0.1/g' \
+										  | sed 's/.*Damage.*/[Damage]			100/g' \
+										  | sed 's/.*Knockback.*/[Knockback]			0/g' \
+										  | sed 's/.*AttractonRadius.*/[AttractonRadius]		0/g' \
+ 										  | sed 's/.*NoiseLevel.*/[NoiseLevel]			0/g' > $DPATH/WalkingDead/WeaponDefsTemp.txt
+	
+	# Player Mods
+	
+	cat $DPATH/WalkingDead/WalkerDefs.txt | sed 's/.*DefaultSpeed.*/[DefaultSpeed]			0.1/g' > $DPATH/WalkingDead/WalkerDefsTemp.txt
+										  
+	# Apply Mods
+	
+	mv $DPATH/WalkingDead/WeaponDefsTemp.txt $DPATH/WalkingDead/WeaponDefs.txt
+	mv $DPATH/WalkingDead/WalkerDefsTemp.txt $DPATH/WalkingDead/WalkerDefs.txt
+	echo 'Mods Applied!'
+	
+fi

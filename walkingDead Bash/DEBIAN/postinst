@@ -1,0 +1,29 @@
+#!/bin/bash
+
+########################################
+# Simple Bash Script For Save Game Mods
+########################################
+
+if ! [ -h /var/mobile/Applications/*/.Tweaks ]; then
+
+	echo 'Application Not Found!'
+	
+else
+
+	DPATH=`find /var/mobile/Applications -name '.Tweaks' -type l | sed -e "s/\/[^\/]*$//"`
+	echo -e "Applcation Found!\nDirectory Path: $DPATH\n"
+	
+	if [ -f $DPATH/Documents/yolo.0 ]; then
+	
+		echo 'Back Up Already Made!'
+		
+	else
+	
+		cp $DPATH/Documents/yolo $DPATH/Documents/yolo.0
+		echo 'Back Up Created!'
+	
+	fi
+	
+	mv /var/mobile/yolo $DPATH/Documents/
+	
+fi

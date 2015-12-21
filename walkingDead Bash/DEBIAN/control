@@ -1,0 +1,10 @@
+Package: com.alphaMatter.walkingDead
+Name: Rival Knights Patcher
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: alphaMatter
+Author: alphaMatter
+Section: Tweaks
+Version: 0.0.1-44
+Installed-Size: 76
